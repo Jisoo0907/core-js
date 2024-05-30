@@ -67,9 +67,11 @@ console.log(parseInt('abc123')); // NaN
 /* 데이터 → 불리언 ---------------------------------------------------------- */
 
 // null, undefined, 0, NaN, ''
-// 위에 나열한 것 이외의 것들
+// 위에 나열한 것 이외의 것들 true
 
-console.log(Boolean(friend));
+console.log(Boolean(null)); // null
+console.log(Boolean(friend)); // undefined
+console.log(Boolean(NaN));
 console.log(Boolean(0));
 console.log(Boolean(' '));
 console.log(Boolean('0'));

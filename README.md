@@ -10,6 +10,10 @@
 
 ### Basic
 
-- [ ] Code Structure [바로가기](https://www.naver.com)
-- [ ] Variable [바로가기](https://www.naver.com)
-- [ ] Strict Mode [바로가기](https://www.naver.com)
+- [x] Code Structure [바로가기](/client/chapter/core/01.codeStructure.js)
+- [x] Variable [바로가기](/client/chapter/core/02.variable.js)
+- [x] Strict Mode [바로가기](/client/chapter/core/03.strictMode.js)
+- [x] Global Object [바로가기](/client/chapter/core/04.globalThis.js)
+- [x] Legacy Var [바로가기](/client/chapter/core/05.legacyVar.js)
+- [x] Data Type [바로가기](/client/chapter/core/06.dataType.js)
+- [x] Type Conversion [바로가기](/client/chapter/core/07.typeConversion.js)
