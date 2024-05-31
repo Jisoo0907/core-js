@@ -20,3 +20,4 @@
 - [x] Operators [바로가기](/client/chapter/core/08-1.operators.js)
 - [x] 비교 Operators [바로가기](/client/chapter/core/08-2.operators.js)
 - [x] 조건문 if [바로가기](/client/chapter/core/09-1.condition.js)
+- [x] 논리 연산자 [바로가기](/client/chapter/core/09-2.conditions.js)
