@@ -40,20 +40,26 @@ let whichFalsy = true && ' ' && [] && { thisIsFalsy: false };
 let whichTruthy = false || '' || [2, 3].length || { thisIsTruthy: true };
 //  [2, 3].length의 변환 전 원래 값이 2. 변환해서 true가 된 것. 그래서 2가 나옴.
 
-let userName = prompt('누구세요?');
+function login() {
+  let userName = prompt('누구세요?');
 
-if (userName?.toLowerCase() === 'admin') {
-  const password = prompt('비밀번호를 입력하세요.');
-  if (password?.toLowerCase() === 'themaster') {
-    alert('환영합니다!');
-  } else if (password?.replace(/\s*/g, '') === '' || password === null) {
-    alert('취소되었습니다');
+  // userName이 null, undefined => 아래 코드 실행 안 함.
+
+  if (userName === null || userName === undefined) return;
+
+  if (userName?.toLowerCase() === 'admin') {
+    let password = prompt('비밀번호는?');
+
+    if (password?.toLowerCase() === 'themaster') {
+      console.log('환영합니다~~!! 짝짝');
+    } else if (password === null) {
+      console.log('취소!');
+    } else {
+      console.log('비밀번호를 잘못 입력하셨습니다.');
+    }
+  } else if (userName === null || userName?.replace(/\s*/g, '') === '') {
+    console.log('취소!');
   } else {
-    alert('인증에 실패하였습니다.');
+    console.log('실패!');
   }
-} else if (userName === null || userName?.replace(/\s*/g, '') === '') {
-  // 공백 찾아서 빈 문자로 바꾸기
-  alert('취소되었습니다.');
-} else {
-  alert('누군지 모르겠습니다.');
 }
