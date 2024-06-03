@@ -104,30 +104,69 @@ switch (+num) {
 
 // 0~6까지 랜덤수를 받아서
 
-function getDay() {
-  const randomNum = Math.floor(Math.random() * 7);
+/* -------------------------------------------------------------------------- */
+/*                               함수는 하나의 기능만 수행                      */
+/* -------------------------------------------------------------------------- */
 
-  switch (randomNum) {
+// 난수 생성 함수
+// parameter 매개변수
+function getRandom(n) {
+  const randomNum = Math.floor(Math.random() * n);
+  return randomNum;
+}
+
+function getDay(value) {
+  switch (value) {
     case 0:
-      console.log('일');
-      break;
+      return '일';
     case 1:
-      console.log('월');
-      break;
+      return '월';
     case 2:
-      console.log('화');
-      break;
+      return '화';
     case 3:
-      console.log('수');
-      break;
+      return '수';
     case 4:
-      console.log('목');
-      break;
+      return '목';
     case 5:
-      console.log('금');
-      break;
+      return '금';
     case 6:
-      console.log('토');
-      break;
+      return '토';
   }
 }
+
+function weekend() {
+  // getDay 실행해서 요일 받아오기
+  const today = getDay(getRandom(7));
+
+  console.log(today);
+
+  if (today === '토' || today === '일') {
+    console.log('주말입니다.');
+  } else {
+    console.log('평일입니다.');
+  }
+  // 토, 일 => '주말입니다'
+  // console.log(day === 0 || day === 6 ? '주말입니다.' : '평일입니다.');
+  // '평일입니다'
+}
+
+/* if(today.includes('토') || today.includes('일')) {
+  return 주말
+} else {
+  return 평일
+} */
+
+/* 방법1  변수에 담아서 리턴
+const day = today.includes('토')
+  ? '토요일'
+  : today.includes('일')
+    ? '일요일'
+    : '평일';
+return day;
+
+/* 방법2 return문에 한 번에 처리
+return today.includes('토')
+? '토요일'
+: today.includes('일')
+  ? '일요일'
+  : '평일'; */
