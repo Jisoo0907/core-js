@@ -78,8 +78,8 @@ function prev(node) {
 
 const previous = prev(second); // .first
 
-function prev(node) {
-  if (typeof node === string) {
-    node = document.querySelector(node);
-  }
-}
+// function prev(node) {
+//   if (typeof node === string) {
+//     node = document.querySelector(node);
+//   }
+// }
