@@ -54,6 +54,7 @@ const result = calcPrice(1000, 3000);
 
 function rem(pxValue, base = 16) {
   if (!pxValue) {
+    // pxValue가 undefined돼서 falsy 값이 되면 이 조건식이 true가 되니까 아래 코드가 실행됨
     throw new Error('rem 함수의 첫 번째 인수는 필수 입력 값입니다.');
   }
   if (typeof pxValue === 'string') {
@@ -100,6 +101,9 @@ function setStyle(node, prop, value) {
 }
 
 setStyle('.first', 'color', 'blue'); // 각각의 값이 문자가 아닐 때, 값이 없을 때 가정
+
+// setStyle은 undefined를 반환함. return해주지 않으니까.
+// 우리는 값 setting을 목적으로 하니까 값을 반환하지 않아도 됨.
 
 // node의 값을 'h1'으로 받았을 경우
 
