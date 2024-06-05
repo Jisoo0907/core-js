@@ -153,6 +153,7 @@ const h1FontSize = getStyle('.first', 'fontSize'); // 32px
  */
 
 function css(node, prop, value) {
+  // set함수와 get 함수 때려박음
   /*  if (!value) {
     // getter
     return getStyle(node, prop);
