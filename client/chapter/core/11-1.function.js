@@ -50,6 +50,15 @@ const result = calcPrice(1000, 3000);
 
 /* 다음 함수를 작성해봅니다. -------------------------------------------------- */
 
+// 좋은 함수 작성 여건
+
+// 1. 함수의 이름을 잘 지어야 한다. (동사) / 가독성 => 읽었을 때 바로 기능을 알 수 있다.
+// 3. 하나의 기능만을 수행해야 한다.
+
+// 2. 전역의 오염을 막는다.
+
+// 4. 재사용성이 좋아야 한다. ( 매개변수 => 유연한 함수 )
+
 // rem(pxValue: number|string, base: number):string;
 
 function rem(pxValue, base = 16) {
@@ -121,3 +130,42 @@ setStyle('.first', 'color', 'blue'); // 각각의 값이 문자가 아닐 때, �
 // 2. h1의 폰트 사이즈를 가져온다.
 // 3. 증가함수와 감소함수를 만든다.
 // 4. 클릭 이벤트와 바인딩한다.
+
+function getStyle(node, prop) {
+  if (typeof node === 'string') node = document.querySelector(node);
+
+  if (typeof prop !== 'string')
+    throw new Error('getStyle 함수의 두 번째 인수는 문자 타입이어야 합니다.');
+
+  return getComputedStyle(node)[prop];
+}
+
+const h1FontSize = getStyle('.first', 'fontSize'); // 32px
+// console.log(h1FontSize);
+
+/* 
+1. function name
+2. 함수 실행부(argument) 미리 작성 해보기(getStyle(a, b)이렇게 넣고 이런 결과를 기대해야지!)
+3. parameter 설정하기 용이해짐
+4. return value
+5. validation
+6. Test Driven Development(TDD)
+ */
+
+function css(node, prop, value) {
+  /*  if (!value) {
+    // getter
+    return getStyle(node, prop);
+  } else {
+    // setter
+    return setStyle(node, prop, value);
+  } */
+
+  return !value ? getStyle(node, prop) : setStyle(node, prop, value);
+}
+
+// const css2 = (node,prop,value) => !value ? getStyle(node,prop) : setStyle(node,prop,value);
+
+css('.first', 'color', 'red'); // setter
+
+css('.first', 'color'); // getter
