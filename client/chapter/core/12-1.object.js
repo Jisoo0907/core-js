@@ -259,3 +259,27 @@ const data = {
 };
 
 const person = createUserObject(data);
+
+const {
+  userName,
+  age,
+  gender,
+  job,
+  address = '서울시 중랑구',
+  tel,
+} = {
+  userName: 'beom',
+  age: 40,
+  gender: 'male',
+  job: 'developer',
+  address: '서울시 중랑구',
+  tel: '010-716....',
+};
+
+// const { acos } = Math;
+
+// acos();
+
+// const { alert } = window;
+
+// alert();
