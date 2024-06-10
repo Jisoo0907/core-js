@@ -160,7 +160,7 @@ const student = {
   email,
   authorization,
   isLogin,
-};
+}; // 얘를 한 줄로 표기 시 객체 구조 분해 할당이랑 유사
 
 // 프로퍼티 이름 제한
 // 예약어: class, if, switch, for, while, ...
@@ -229,8 +229,33 @@ const salaries = {
 // console.log(이진용);
 
 const { 함정민: 함, 지유진, 한상학, 이진용, 이지수 = 1000 } = salaries;
+// 근데 얘는 const salaries를 못 이김. 함정민: 함 = 100해도 95가 출력됨
 // key를 뽑긴 했지만 난 함으로 바꿔서 사용할 것임!
 console.log(함); // 95
 
 console.log(이지수); // 선언된 적 없는 변수 찾음 => undefined 반환
 // 구조분해 할당 할 때 기본 값을 설정하면 쓸 수 있음
+
+function createUserObject(obj) {
+  const { name: n, age: a, gender: g, job: j, ...rest } = obj; // 여기서 기본값 설정 가능 job = '홈프로텍터'
+  // 단축어로 설정하고 싶으면 이렇게 해
+
+  return {
+    // 새로운 객체 반환
+    name: n,
+    age: a,
+    gender: g,
+    job: j, // job: undefined 나옴
+  };
+}
+
+const data = {
+  name: 'beom',
+  age: 40,
+  gender: 'male',
+  job: '개발자', // 객체에 보낼 때 얘를 안 주면
+  address: '서울시 중랑구', // 얘랑 아래 코드만 console.log(rest)에 출력됨
+  tel: '010-666....',
+};
+
+const person = createUserObject(data);
