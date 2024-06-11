@@ -107,7 +107,7 @@ const defaultOptions = {
 };
 
 function ajax(options) {
-  // const newOptions = { ...defaultOptions, ...options };
+  // const newOptions = { ...defaultOptions, ...options }; 사용자가 정의한 ...options를 꼭 뒤쪽에. overwrite 되게.
   // 기본 구조와 전달된 구조를 합쳐서 사용
 
   const { method, headers, body } = {
