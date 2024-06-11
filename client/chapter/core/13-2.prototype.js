@@ -6,13 +6,14 @@
 
 // 1. 객체의 상속
 // 2. 생성자 함수의 상속
-// 3. 생성자 함수의 모던 방식 class
+// 3. 생성자 함수 모던 방식 class
 
 class Animal {
+  legs = 4;
+  tail = true;
+
   constructor(name) {
     this.name = name;
-    this.legs = 4;
-    this.tail = true;
     this.stomach = [];
   }
 
@@ -25,29 +26,22 @@ class Animal {
   }
 }
 
-const a = new Animal('포동이'); // 객체 생성
+const a = new Animal('포동이');
 
 class Tiger extends Animal {
-  // Animal에서 확장된 class로 선언
-
   static options = {
-    version: ' 1.0.0',
+    version: '1.0.0',
     company: '8b-studio',
     ceo: '심선범',
   };
 
-  // 부모의 능력 쓰고 싶으면 super 콜 해
   constructor(name) {
-    super(name); // super 호출하는데 name 같이 전달. => 위의 Animal class의 name에 들어감.
+    super(name);
     this.pattern = '호랑이무늬';
   }
 
-  /*   bark(sound) { // 지금은 instance method. 
-    return sound + '🐅';
-  } */
-
   static bark(sound) {
-    return sound + '🐅'; // 호출할 때 Tiger.bark('어흥!')
+    return sound + '🐯';
   }
 
   hunt(target) {
