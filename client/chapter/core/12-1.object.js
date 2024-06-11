@@ -283,3 +283,16 @@ const {
 // const { alert } = window;
 
 // alert();
+
+// function createUserObject({name, age, gender, job:j = '홈프로텍터'}) {
+
+//   //   const { name: n, age: a, gender: g, job: j, ...rest } = obj;
+
+//     return {
+//       // 새로운 객체 반환
+//       name: n,
+//       age: a,
+//       gender: g,
+//       job: j, // job: undefined 나옴
+//     };
+//   }
