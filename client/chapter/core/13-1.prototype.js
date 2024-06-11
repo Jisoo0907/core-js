@@ -62,8 +62,8 @@ function Animal() {
 // const a1 = new Animal();
 
 function Tiger(name) {
-  Animal.call(this);
-  this.name = name;
+  Animal.call(this); // call 앞 함수에게 this 전달. 금강산호랑이가 this로 들어감.
+  this.name = name; // this는 실행할 때 생성된 것.
   this.pattern = '호랑이무늬';
   this.hunt = function (target) {
     return `${target}에게 조용히 접근한다.`;
@@ -75,7 +75,16 @@ function Tiger(name) {
 // Tiger.prototype = Object.create(Animal.prototype);
 // Tiger.prototype.constructor = Tiger;
 
-const 금강산호랑이 = new Tiger('금순이');
+const 금강산호랑이 = new Tiger('금순이'); // 전달해줬으니까 Tiger함수 내의 this는
+// 전부 금강산호랑이가 됨.
+// hunt는 금강산호랑이만이 가진 함수.
+금강산호랑이.hunt('사슴');
+// instance만 쓸 수 있는 메서드 => 인스턴스 메서드. 0610 노션 참고
+
+// static method
+Tiger.bark = function (sound) {
+  return sound;
+};
 
 /* 다른 예제 */
 
@@ -93,7 +102,7 @@ function sum(a, b, c) {
 }
 
 sum.call('hello', 1, 2, 3); // this를 전달함 인수를 개별로 받음 => 함수 실행 o
-sum.apply('hello', 1, 2, 3); // this를 전달함 인수를 배열로 받음 => 함수 실행 o
+// sum.apply('hello', 1, 2, 3); // this를 전달함 인수를 배열로 받음 => 함수 실행 o
 
 const b = sum.bind('hello', 1, 2, 3); // this를 전달함 인수를 개별로 받음 => 함수 실행 안함
 
