@@ -101,18 +101,18 @@ clearTimeout(id2);
 /*                            requestAnimationFrame                           */
 /* -------------------------------------------------------------------------- */
 
-// let counter = 0;
+let counter = 0;
 
-// function animation() {
-//   console.log(++counter);
+function animation() {
+  console.log(++counter);
 
-//   const id = requestAnimationFrame(animation);
+  const id = requestAnimationFrame(animation);
 
-// if (counter >= 100) {
-//   cancelAnimationFrame(id);
-//  }
-// }
+  if (counter >= 100) {
+    cancelAnimationFrame(id);
+  }
+}
 
-// animation();
+animation();
 
 // 다른 페이지 보고 있을 때 멈춤
