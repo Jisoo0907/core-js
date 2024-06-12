@@ -212,8 +212,8 @@ const MASTER = (function (tiger) {
   };
 })(window); // 함수 실행은 여기서. arg 넣을 수 있음.
 // window말고 위에서 정의한 cb 이런 것도 넣을 수 있음
-
-/*  */
+// 얘도 클로저
+MASTER.setKey('1234');
 
 const people = [
   {
