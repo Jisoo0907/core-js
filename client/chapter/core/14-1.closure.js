@@ -39,7 +39,7 @@ result(30);
 // 마치 밖의 함수가 안쪽 변수를 사용하는 형태 => 클로저
 // 안쪽의 대상이 바깥쪽을 사용하는 것.
 
-function counter() {
+/* function counter() {
   let count = 0;
 
   function c() {
@@ -47,7 +47,22 @@ function counter() {
   }
 
   return c;
-}
+} */
+
+// 또 아래처럼 변경 가능.
+const counter = () => {
+  let count = 0;
+  return () => ++count;
+};
+
+// counter();
+
+// 위 코드를 아래처러 변경 가능
+// const counter = (count) => () => ++count;
+// 얘는 초기값 넣어야되는 방식
+
+const a = (x) => (y) => (z) => x + y + z;
+a(1)(2)(3);
 
 const c1 = counter(); // 매번 다른 환경이 생성됨
 const c2 = counter();
