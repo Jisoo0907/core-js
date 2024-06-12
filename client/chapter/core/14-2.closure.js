@@ -78,7 +78,7 @@ button.addEventListener('click', handleClick);
 /*                                 new example                                */
 /* -------------------------------------------------------------------------- */
 
-function state(init) {
+function useState(init) {
   let value = init; // 이 값이 기억됨
 
   function read() {
@@ -103,5 +103,5 @@ function state(init) {
 // const setter = result[1];
 // 이제 state의 value에 접근할 수 있는 건 getter랑 setter 뿐
 // 배열이면, 구조 분해 할당 가능하지 않음?
-const [getNumber, setNumber] = userState(10);
+const [getNumber, setNumber] = useState(10);
 // React의 hook
