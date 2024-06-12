@@ -36,17 +36,95 @@ class Tiger extends Animal {
   };
 
   constructor(name) {
-    super(name);
+    // 호돌이가 이 name에 전달됨
+    super(name); // Animal 안의 constructor를 실행하겠다
     this.pattern = '호랑이무늬';
   }
 
   static bark(sound) {
+    // static method가 됨
     return sound + '🐯';
   }
 
   hunt(target) {
+    // instance method
     return `${target}에게 조용히 접근한다.`;
   }
 }
 
 const 호랑이 = new Tiger('호돌이');
+
+/* -------------------------------------------------------------------------- */
+/*                                    todo                                    */
+/* -------------------------------------------------------------------------- */
+
+class Todo {
+  target = null;
+  registerButton = null;
+  list = null;
+
+  constructor({ input, button, renderPlace }) {
+    this.target = document.querySelector(input);
+    this.registerButton = document.querySelector(button);
+    this.list = document.querySelector(renderPlace);
+    this.todoListArray = [];
+    this.data;
+
+    this.registerEvent();
+
+    this.target.addEventListener('input', () => {
+      this.data = this.currentInputTodoData;
+    });
+  }
+
+  get currentInputTodoData() {
+    return this.target.value;
+  }
+
+  set currentInputTodoData(value) {
+    this.target.value = value;
+  }
+
+  get todoList() {
+    return this.todoListArray;
+  }
+
+  set todoList(value) {
+    this.todoList.push(value);
+  }
+
+  #createList() {
+    let template = `
+      <li>${this.data}</li>
+    `;
+    return template;
+  }
+
+  render() {
+    this.list.insertAdjacentHTML('beforeend', this.#createList());
+    this.target.value = '';
+  }
+
+  addTodoData() {
+    this.todoList = this.data;
+  }
+
+  registerEvent() {
+    this.registerButton.addEventListener('click', () => {
+      this.addTodoData();
+      this.render();
+    });
+  }
+}
+
+const button = new Todo({
+  input: '#todo',
+  button: '.register',
+  renderPlace: '.todoList',
+});
+
+const button2 = new Todo({
+  input: '#todo2',
+  button: '.register2',
+  renderPlace: '.todoList2',
+});
