@@ -69,23 +69,74 @@ function checkBrowser() {
 
 checkBrowser(); // chrome
 
-let lastIndexOf;
-let includes;
-let startsWith;
-let endsWith;
+let lastIndexOf = message.lastIndexOf('s'); // 뒤에서부터 찾지만 앞에서부터의 인덱스 반환
+console.log('lastIndexOf: ', lastIndexOf);
+
+let includes = message.includes('Less');
+console.log('includes: ', includes);
+
+let startsWith = message.startsWith('Less');
+console.log('startsWith', startsWith);
+
+let endsWith = message.endsWith('.'); // 모든 문장이 마침표로 끝나야 될 때 유용
+console.log('endWith: ', endsWith);
+
+let str = '       a     b   c             d';
 
 // 공백 잘라내기
-let trimLeft;
-let trimRight;
-let trim;
+let trimLeft = str.trimLeft(); // deprecated 왼쪽 값 지움
+console.log('trimLeft: ', trimLeft);
+// 보통 justify-content: flex-start/flex-end로 지정. 글을 꼭 왼쪽에서 읽진 console.error('않으니까',않으니까)
+// left-right 개념 요즘 잘 사용 안 한대.
+
+let trimRight = str.trimRight();
+console.log('trimRight:', trimRight);
+
+let trim = str.trim();
+console.log('trim: ', trim);
+
+// 중간 공백 잘라내기
+const replaceAll = str.replaceAll(' ', ''); // 모든 좌변 값을 찾아서 우변 껄로 바꿔치기
+console.log('replaceAll:', replaceAll);
+
+const replace = str.replace(/\s*/g, '');
+console.log('replace: ', replace);
+
+// 공백 제거해주는 함수 작성
+const trimText = (s) => s.replaceAll(' ', '');
+
+trimText(str); // abcd
 
 // 텍스트 반복
-let repeat;
+let repeat = message.repeat(3);
+console.log('repeat:', repeat);
 
 // 대소문자 변환
-let toLowerCase;
-let toUpperCase;
+let toLowerCase = message.toLowerCase();
+console.log('toLowerCase:', toLowerCase);
+
+let toUpperCase = message.toUpperCase();
+console.log('toUpperCase:', toUpperCase);
+
+console.clear();
 
 // 텍스트 이름 변환 유틸리티 함수
-let toCamelCase;
-let toPascalCase;
+function toCamelCase(string) {
+  return string.replace(
+    /(\s|-|_)+./g,
+    (
+      $1 // .찍으면 뒤의 알파벳 하나 선택
+    ) =>
+      $1
+        .trim()
+        .replace(/(-|_)+/, '')
+        .toUpperCase()
+  );
+}
+// replace가 callback 함수 제공해줌
+// 앞에서 걸러진 문자들이 뒤의 매개변수로 들어가게 됨
+
+function toPascalCase(string) {
+  let name = toCamelCase(string);
+  return name[0].toUpperCase() + name.slice(1);
+}
