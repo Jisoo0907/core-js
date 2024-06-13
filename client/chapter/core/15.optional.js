@@ -92,7 +92,7 @@ const id2 = setInterval(() => {
     `translateY(${count}px) rotate(${count}deg)`;
 
   if (count >= 100) {
-    clearInterval(id2);
+    clearInterval(id2); // web API 삭제
   }
 }, 10);
 clearTimeout(id2);
@@ -106,10 +106,10 @@ let counter = 0;
 function animation() {
   console.log(++counter);
 
-  const id = requestAnimationFrame(animation);
+  const id = requestAnimationFrame(animation); // 재귀함수처럼 동작하도록 함. 함수 안에서 자기 호출하니까.
 
   if (counter >= 100) {
-    cancelAnimationFrame(id);
+    cancelAnimationFrame(id); // 모니터. 주사율에 따라 부드럽게 보이거나 끊겨 보이거나 함.
   }
 }
 
