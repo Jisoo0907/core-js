@@ -24,6 +24,25 @@ function pow(x, n) {
 }
 
 pow(2, 3);
+
+/* 
+1. pow(2, 3) 실행
+2. 2 * pow(2, 3-1)식에서 pow(2, 3)이 일시정지함
+3. 일지정지 하고 pow(2, 2)가 실행됨 => pow(2, 3) 위에 pow(2, 2) 실행환경이 쌓임(스택)
+4. 2 * pow(2, 2-1)에서 pow(2, 1)이 실행됨 => n === 1이니까 x값인 2가 반환됨  :  pow(2, 1)이 2를 반환함
+5. 쌓여있던 스택 맨 위부터 반환됨
+6. 2 * pow(2, 2)가 멈춰 있었음 => 2 * 2가 됨(4 return)
+7. 그 아래쪽의 멈춰 있던 2 * pow(2, 3)이 계산됨 => 2 * 4(최종 값 8 return)
+*/
+
+/* 
+pow(2, 3)이 x * pow(2, 2) 반환함
+pow(2, 2)가 x * pow(2, 1) 반환함
+근데 pow(2, 1)에서 2를 반환함
+x * pow(2, 2)는 곧 x * 2가 됨 => x는 2였으니까 2 * 2는 4가 됨
+pow(2, 3)이 반환했던 함수 x * pow(2, 2)가 4니까 2 * 4 = 8이 됨
+*/
+
 // factorial 함수를 재귀 호출 방식으로 작성
 // 참고: https://bit.ly/factorial-util
 // - 팩토리얼 = 그 수보다 작거나 같은 모든 양의 정수의 곱
@@ -167,9 +186,23 @@ function sumSalaries(department) {
   }
 }
 
-function isArray(data) {
+console.log(sumSalaries(SocialPartners));
+
+/* 
+위 코드의 reduce에서 초깃값을 주지 않을 경우 :
+00[object Object]26000000[object Object]2743000[object Object]32080002106000
+가 출력됨.
+첫 번째 요소가 acc가 되기 때문임.
+=> acc는 { name: '이진아', salary: 3_250_000 }가 됨
+=> acc + cur.salary는 { name: '이진아', salary: 3_250_000 } + 2_600_000이 됨
+객체 + 숫자는 객체를 문자열로 변환함
+3_250_000[object Object]
+=> 재귀적으로 호출되면 점점 이상한 결과가 누적됨
+*/
+
+/* function isArray(data) {
   return Array.isArray(data);
-}
+} */
 
 const randomUser = {
   gender: 'female',
