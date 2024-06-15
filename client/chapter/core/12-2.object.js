@@ -83,13 +83,19 @@ let copiedContainerStyles = {
 // 1. 깊은 복사 유틸리티 함수
 function cloneDeep(object) {
   return Object.fromEntries(
-    // 배열을 객체로 만들 수 있음
+    // fromEntries: 객체의 속성을 [key, value]쌍의 배열로 반환
     Object.entries(object).map(([key, value]) => {
-      let type = typeof value;
+      // 배열의 각 [key, value] 쌍에 대해 콜백 함수 적용
+      // [key, value] 쌍을 받아서 깊은 복사 수행, [key, newValue] 반환
+      let type = typeof value; // 현재 값의 타입 확인
+      // typeof는 원시 타입과 객체인지 여부 확인 가능
       if (value && type === 'object') {
-        value = cloneDeep(value);
+        // 값이 null이 아닌 객체인 경우에 참이 됨
+        // null도 object로 판별돼서 추가적으로 value의 존재 여부 체크
+        value = cloneDeep(value); // 배열이나 객체인 경우 재귀적으로 cloneDeep 함수 호출
+        // 중첩된 모든 객체와 배열 깊은 복사함
       }
-      return [key, value];
+      return [key, value]; // value가 기본형이면 그대로 반환, 객체면 깊은 복사된 객체 반환
     })
   );
 }
@@ -97,6 +103,8 @@ function cloneDeep(object) {
 console.clear();
 
 // 객체 합성을 언제 쓰는지?
+/* ajax 함수에서 defaultOptions 객체와 options 객체를 병합하여 새 설정 객체 생성 과정 */
+
 const defaultOptions = {
   method: 'GET',
   body: null,
@@ -111,11 +119,16 @@ function ajax(options) {
   // 기본 구조와 전달된 구조를 합쳐서 사용
 
   const { method, headers, body } = {
-    ...defaultOptions,
-    ...options,
+    // 객체 구조 분해 -> 병합된 설정 객체에서 method, headers, body 속성을
+    // 구조 분해 할당하여 상수로 선언
+    /* spread 연산자를 이용한 얕은 복사 */
+    ...defaultOptions, // defaultOptions 객체의 모든 속성을 새로운 객체로 복사
+    ...options, // options 객체의 모든 속성을 defaultOptions의 복사본에 추가
+    // defaultOptions와 동일한 속성 있을 시 options의 속성 우선시
     headers: {
-      ...defaultOptions.headers,
-      ...options.headers,
+      /* 기본 헤더와 사용자 제공 헤더 병합 */
+      ...defaultOptions.headers, // defaultOptions.headers객체의 모든 속성을 새로운 headers 객체에 복사
+      ...options.headers, // options.headers객체의 모든 속성을 새로운 headers 객체에 추가.
     },
   };
 
