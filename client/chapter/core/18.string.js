@@ -28,10 +28,10 @@ console.log(immutableChangeCharacter);
 // const a = {...immutable}
 
 // 부분 문자열 추출
-let slice = message.slice(4, -1);
+let slice = message.slice(4, -1); // 글자의 0부터 셈
 console.log(slice); // ' is more'
 
-let subString = message.substring(2, 5);
+let subString = message.substring(2, 5); // 2 <= x  < 5
 console.log(subString); // 'ss '
 
 // let subStr = message.subStr();
@@ -92,14 +92,16 @@ console.log('trimLeft: ', trimLeft);
 let trimRight = str.trimRight();
 console.log('trimRight:', trimRight);
 
-let trim = str.trim();
+let trim = str.trim(); // 문자열의 앞뒤 공백 제거, 새로운 문자열 반환.
 console.log('trim: ', trim);
 
 // 중간 공백 잘라내기
 const replaceAll = str.replaceAll(' ', ''); // 모든 좌변 값을 찾아서 우변 껄로 바꿔치기
 console.log('replaceAll:', replaceAll);
 
-const replace = str.replace(/\s*/g, '');
+const replace = str.replace(/\s*/g, ''); // 정규 표현식
+// \s* : 모든 공백 문자
+// g : 전역 검색. 문자열 내의 모든 공백 문자 찾음
 console.log('replace: ', replace);
 
 // 공백 제거해주는 함수 작성
@@ -140,3 +142,4 @@ function toPascalCase(string) {
   let name = toCamelCase(string);
   return name[0].toUpperCase() + name.slice(1);
 }
+// slice(1) : 첫 번째 글자를 제외한 나머지 부분 가져옴
