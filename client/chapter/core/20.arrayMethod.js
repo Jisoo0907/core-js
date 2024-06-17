@@ -242,15 +242,20 @@ const products = [
 ];
 
 const forEach = (f, i) => {
-  for (const a of i) f(a);
+  // f - 함수, i - iterable(반복 가능한 객체)
+  for (const a of i) f(a); // 반복문 내 - i의 각 요소가 a에 할당
+  // 각 반복마다 f(a)를 호출하여 a를 인수로 f 함수 실행
 };
 
 forEach(
   (item) => {
+    // item이라는 인자를 받아 다음 코드 실행
     console.log(item);
   },
-  [1, 2, 3]
+  [1, 2, 3] // 두 번째 인수로 배열 전달. forEach 함수의 두 번째 인자인 i에 해당
 );
+// 배열 1, 2, 3 각 요소를 순회하면서, 각 요소를 인수로 받아 console.log(item)을 실행
+// f(1), f(2), f(3)을 차례대로 호출
 
 const map = (f, i) => {
   let result = [];
@@ -275,10 +280,11 @@ _filter((n) => n > 3, [1, 2, 3, 4, 5]);
 
 const _reduce = (f, acc, i) => {
   if (!i) {
+    // i가 없을 때. undefined가 들어가면 이 조건식이 true가 되니까.
     i = acc;
-    acc = i.shift();
+    acc = i.shift(); // 첫 번째 값을 빼서 acc에 담음
     // i = acc[Symbol.iterator]();
-    // acc = i.next().value
+    // acc = i.next().value // next를 통해 항목을 하나 빼긴
   }
 
   for (const a of i) {
