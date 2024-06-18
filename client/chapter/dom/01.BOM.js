@@ -37,7 +37,7 @@ console.log(hash); */
 // console.clear();
 
 const urlParams = new URLSearchParams(location.search);
-
+// iterable 객체라 for of로 순환 가능
 for (const [key, value] of urlParams) {
   console.log(`${key}:${value}`); // 왜 주석의 링크로 들어갔을 때만 결과가 출력됨?
 }
@@ -63,31 +63,41 @@ navigator.geolocation.getCurrentPosition((data) => {
 /* -------------------------------------------------------------------------- */
 /*                            getGeolocation 함수 작성                         */
 /* -------------------------------------------------------------------------- */
-/* function getGeolocation(success) {
-  navigator.geolocation.getCurrentPosition((data) => {
+function getGeolocation(success, fail) {
+  // 성공/실패 시 호출될 콜백 함수
+  navigator.geolocation.getCurrentPosition((data) => { // data - 위치 정보 객체
+    // 현재 위치 가져옴
+    // 비동기 함수 메서드. 위치 정보를 성공적으로 가져오면 콜백 함수에 해당 정보 전달
     // 얘 앞에 return 붙여도 얘는 비동기로 동작하는 애라
     // 안 기다려 주고 바로 undefined 내보냄
-    if (data) {
+    if (data) { 
       const { latitude: lat, longitude: long } = data.coords;
 
       const geo = {
         // 왜 객체로 만들어서 내보내냐? => 우리가 원하는 결과가 { let: 뭐시기, long: 뭐시기} 니까.
         // 단축 프로퍼티
-        lat, // : lat
-        long, // : long
+        // lat, // : lat
+        // long, // : long
+        lat,
+        long,
       };
 
-      success(geo); // 값이 떨어지는 순간에 success를 실행하고 geo 전달
+      success(geo); // 값이 떨어지는 순간에 success를 실행하고 위치 정보 담고 있는 geo 전달
     } else {
-      console.error('위치 서비스 동의 하세요');
+      fail({ message: '위치 서비스 동의 하세요' });
     }
   });
 }
 
 // 콜백 함수
-getGeolocation((s{lat, long}) => {
-  console.log(data);
-}); */
+getGeolocation(
+  ({ lat, long }) => {
+    console.log(data);
+  },
+  (e) => {
+    console.log(e);
+  }
+);
 
 // fail 있는 코드는
 /* -------------------------------------------------------------------------- */
