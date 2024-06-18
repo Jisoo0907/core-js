@@ -16,6 +16,7 @@ export default [
         ...globals.browser,
         ...globals.node,
         ...type,
+        getNode: true,
       },
     },
     rules: {
