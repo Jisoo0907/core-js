@@ -42,3 +42,24 @@ const firstEventRemove = bindEvent('.first', 'click', handleClick); */
 
 // - addEventListener
 // - removeEventListener
+
+/* -------------------------------------------------------------------------- */
+/*                                   soccer                                   */
+/* -------------------------------------------------------------------------- */
+
+const ground = getNode('.ground');
+const ball = getNode('#ball');
+
+function handleClickBall({ offsetX: x, offsetY: y }) {
+  // 2. let { offsetX: x, offsetY: y } = e;
+
+  // 1. let x = e.offsetX;
+  // let y = e.offsetY;
+
+  const w = ball.offsetWidth;
+  const h = ball.offsetHeight;
+
+  ball.style.transform = `translate(${x - w / 2}px, ${y - h / 2}px)`; // 공의 크기의 절반을 빼자!
+}
+
+ground.addEventListener('click', handleClickBall);
