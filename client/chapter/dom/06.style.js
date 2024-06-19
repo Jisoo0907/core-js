@@ -95,21 +95,34 @@ console.log(getComputedStyle(first)['font-size']);
 
 // toggleClass('.first', 'hello');
 
-function getStyle(node, prop) {
-  return node.style.prop;
-}
+// function getStyle(node, prop) {
+//   if (isString(node)) node = getNode(node);
 
-getStyle('.first', 'font-size'); // '32px'
+//   if (!(prop in document.body.style)) {
+//     throw new SyntaxError(
+//       'getStyle 함수의 두 번째 인수는 유효한 css 속성이 아닙니다.'
+//     );
+//   }
+//   return getComputedStyle(node)[prop];
+// }
 
-function setStyle(node, prop, style) {
-  return (node.style.prop = 'style');
-}
+// getStyle('.first', 'font-size'); // '32px'
 
-setStyle('.first', 'color', 'red');
+// function setStyle(node, prop, value) {
+//   if (isString(node)) node = getNode(node);
 
-const css = () => {
-  //
-};
+//   if (!(prop in document.body.style)) {
+//     throw new SyntaxError(
+//       'setStyle 함수의 두 번째 인수는 유효한 css 속성이 아닙니다.'
+//     );
+//   }
+//   node.style[prop] = value;
+// }
 
-css('.first', 'color'); // getter
-css('.first', 'color', 'orange'); // setter
+// setStyle('.first', 'color', 'red');
+
+// const css = (node, prop, value) =>
+//   !value ? getStyle(node, prop) : setStyle(node, prop, value);
+
+// css('.first', 'color'); // getter
+// css('.first', 'color', 'orange'); // setter
