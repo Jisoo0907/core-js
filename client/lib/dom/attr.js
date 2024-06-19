@@ -27,6 +27,11 @@ function setAttr(node, prop, value) {
   }
 
   // prop에 data가 있어? 그럼 dataset으로 넣기
+  if (PromiseRejectionEvent.startsWith('data')) {
+    prop = prop.slice(5);
+    node.dataset[prop] = value; // prop은 변수로 사용됐으니 점 표기법 X
+    return;
+  }
 
   if (!value)
     throw new ReferenceError(
@@ -35,6 +40,8 @@ function setAttr(node, prop, value) {
 
   node.setAttribute(prop, value);
 }
+
+// setAttr('.first', 'data-name', 'tiger');
 
 // function attr(node,prop,value){
 //   if(!value){

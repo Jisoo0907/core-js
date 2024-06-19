@@ -30,7 +30,7 @@ console.log(first.hasAttribute('class'));
 console.log(first.getAttribute('data-value')); // 모든 비표준 속성 순환 가능
 
 // - elementNode.setAttribute(name, value) – 속성값을 변경함
-first.setAttribute('id', 'tiger');
+first.setAttribute('id', 'tiger'); // first의 id를 tiger로 변경
 
 // - elementNode.removeAttribute(name) – 속성값을 지움
 first.removeAttribute('id');
