@@ -37,3 +37,8 @@
 .ground::before {
   right: 0;
 }
+.emotion {
+  font-size: 2rem;
+  position: absolute;
+  pointer-events: none;
+}
