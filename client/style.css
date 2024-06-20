@@ -3,57 +3,12 @@
   padding: 0;
 }
 
-.ground {
-  width: 400px;
-  height: 300px;
-  border: 5px solid black;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #66cd7b;
-  overflow: hidden;
-}
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
 
-#ball {
-  transition: all 0.3s;
-  pointer-events: none;
-}
-.ground::after,
-.ground::before {
-  content: '';
-  width: 30px;
-  height: 50px;
-  background-color: rgba(128, 128, 128, 0.408);
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.ground::after {
-  left: 0;
-}
-
-.ground::before {
-  right: 0;
-}
-.emotion {
-  font-size: 2rem;
-  position: absolute;
-  pointer-events: none;
-}
-
-section {
-  background-color: orange;
-  padding: 2rem;
-}
-
-article {
-  background-color: hotpink;
-  padding: 2rem;
-}
-
-p {
-  background-color: dodgerblue;
-  padding: 2rem;
+  li {
+    padding: 1rem;
+  }
 }
