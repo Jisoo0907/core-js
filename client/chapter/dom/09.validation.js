@@ -45,3 +45,24 @@ function handleClick(e) {
 }
 
 nav.addEventListener('click', handleClick);
+
+/* const navList = document.querySelectorAll('nav li');
+
+navList.forEach((li, i) => {
+  li.addEventListener('click', () => {
+    console.log(i);
+
+    switch (i) {
+      case 0:
+        console.log('about');
+        break;
+      case 1:
+        console.log('home');
+        break;
+      case 2:
+        console.log('contact');
+        break;
+    }
+  });
+});
+ */
