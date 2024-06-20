@@ -1,23 +1,29 @@
 /* -------------------------------------------------------------------------- */
 /*                                    class                                   */
 /* -------------------------------------------------------------------------- */
+// className에 배열 넣으면 이중 배열이 돼서 그냥 forEach 돌리기
 function addClass(node, ...className) {
   if (typeof node === 'string') node = document.querySelector(node);
 
-  if (isArray(className)) {
-    className.forEach((c) => node.classList.add(c));
-    return;
-  }
+  className.forEach((c) => {
+    if (isObject(c)) c = Object.values(c);
 
-  if (isObject(className)) Object.values(className);
+    if (c.includes(',')) c = c.replace(/\s*/g, '').split(',');
 
-  if (typeof className !== 'string') {
-    throw new TypeError(
-      'addClass함수의 두 번째 인수는 문자 타입이어야 합니다.'
-    );
-  }
-  node.classList.add(className);
+    if (isArray(c)) {
+      c.forEach((c) => node.classList.add(c));
+    } else if (isString(c)) {
+      node.classList.add(c);
+    } else {
+      throw new TypeError('addClass 함수의 인수는 문자 타입 이어야 합니다.');
+    }
+  });
 }
+
+// addClass('ground', ['a', 'b', 'c']);
+// addClass('ground', 'a', 'b', 'c');
+// addClass('ground', 'a, b, c');
+// addClass('ground', {a:'one', b:'two'});
 
 function removeClass(node, className) {
   if (typeof node === 'string') node = document.querySelector(node);
