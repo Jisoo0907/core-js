@@ -180,7 +180,7 @@ select {
       justify-content: center;
       align-items: center;
       overflow: hidden; /* 자식이 부모를 넘치면 안되니까(메뉴 글자 안 보이게)*/
-      transition: height 0.3s;
+      /* transition: height 0.3s; */
     }
   }
 }
