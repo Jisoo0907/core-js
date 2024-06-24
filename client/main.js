@@ -1,3 +1,5 @@
+import { attr, getNode, insertLast, clearContents } from './lib/index.js';
+
 function phase1() {
   /* 
 1. input value 값 가져오기 (first, second)
