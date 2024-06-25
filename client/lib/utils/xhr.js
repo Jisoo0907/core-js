@@ -28,7 +28,7 @@ function xhr(method, url, body) {
     if (readyState === 4) {
       // complete. 실패할 수도.
       if (status >= 200 && status < 400) {
-        console.log(response); // xhr.status: 상태 코드
+        console.log(JSON.parse(response)); // xhr.status: 상태 코드. parse하면 객체.
       } else {
         console.log('실패!');
       }
