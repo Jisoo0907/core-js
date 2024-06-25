@@ -1,41 +1,119 @@
 const ENDPOINT = 'https://jsonplaceholder.typicode.com/users';
 
-// [readyState]
-/* 0 : uninitialized 받기 전
-1 : loading 로딩
-2 : loaded 로딩이 끝남
-3 : interactive
-4 : complete => 성공 / 실패 (그냥 통신이 끝남. 성공을 의미하진 않음)
-*/
+//  [readyState]
+// 0 : uninitialized
+// 1 : loading
+// 2 : loaded
+// 3 : interactive
+// 4 : complete   => 성공 / 실패
+
 const user = {
-  name: 'rabbit',
+  name: 'tiger',
   age: 40,
   gender: 'male',
 };
 
-function xhr(method, url, body) {
-  const xhr = new XMLHttpRequest(); // 데이터 얻으려는 것.
+/* -------------------------------------------- */
+/*               xhr callback 방식               */
+/* -------------------------------------------- */
+
+function xhr({
+  method = 'GET',
+  url = '',
+  body = null,
+  성공 = null,
+  실패 = null,
+  headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+}) {
+  const xhr = new XMLHttpRequest();
 
   xhr.open(method, url);
 
-  xhr.setRequestHeader('Content-Type', 'application/json');
+  Object.entries(headers).forEach(([key, value]) => {
+    xhr.setRequestHeader(key, value);
+  });
 
   xhr.addEventListener('readystatechange', () => {
-    const { readyState, status, response } = xhr; // 이 코드 추가 후 xhr.뫄뫄를 다 없앰
+    const { readyState, status, response } = xhr;
 
-    // on 붙은 이벤트는 다 on떼고 쓸 수 있대
-    // readyState === 4 : xhr.response 조회하면 데이터 떨어진 순간이니까 데이터 가져올 수 있지 않을까?
     if (readyState === 4) {
-      // complete. 실패할 수도.
       if (status >= 200 && status < 400) {
-        console.log(JSON.parse(response)); // xhr.status: 상태 코드. parse하면 객체.
+        const data = JSON.parse(response);
+
+        성공(data); // ???
       } else {
-        console.log('실패!');
+        실패('실패!');
       }
     }
-  }); // 상태가 바뀔 때마다 호출
+  });
 
-  xhr.send(JSON.stringify(body)); // id만 나오고 우리가 넣은 값은 안 나옴
+  xhr.send(JSON.stringify(body));
 }
 
-xhr('POST', ENDPOINT, user);
+// 1. 무조건 매개변수 순서에 맞게 작성 ✅
+// 2. 매개변수 안쓰면? ✅
+
+// xhr({
+//   성공(data) {
+//     console.log(data);
+//   },
+//   실패() {},
+//   url: ENDPOINT,
+// });
+
+xhr.get = (url, 성공, 실패) => {
+  xhr({ url, 성공, 실패 });
+};
+
+xhr.post = (url, body, 성공, 실패) => {
+  xhr({
+    method: 'POST',
+    body,
+    url,
+    성공,
+    실패,
+  });
+};
+
+xhr.put = (url, body, 성공, 실패) => {
+  xhr({
+    method: 'PUT',
+    body,
+    url,
+    성공,
+    실패,
+  });
+};
+
+xhr.delete = (url, 성공, 실패) => {
+  xhr({
+    method: 'DELETE',
+    url,
+    성공,
+    실패,
+  });
+};
+
+xhr.post(
+  ENDPOINT,
+  (data) => {
+    console.log(data);
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
+//
+
+/* -------------------------------------------- */
+/*               xhr Promise 방식               */
+/* -------------------------------------------- */
+
+// xhr
+// .post(ENDPOINT)
+// .then()
+// .then()
