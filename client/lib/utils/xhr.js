@@ -13,23 +13,29 @@ const user = {
   gender: 'male',
 };
 
-const xhr = new XMLHttpRequest(); // 데이터 얻으려는 것.
+function xhr(method, url, body) {
+  const xhr = new XMLHttpRequest(); // 데이터 얻으려는 것.
 
-xhr.open('GET', ENDPOINT);
+  xhr.open(method, url);
 
-xhr.addEventListener('readystatechange', () => {
-  const { readyState, status, response } = xhr; // 이 코드 추가 후 xhr.뫄뫄를 다 없앰
+  xhr.setRequestHeader('Content-Type', 'application/json');
 
-  // on 붙은 이벤트는 다 on떼고 쓸 수 있대
-  // readyState === 4 : xhr.response 조회하면 데이터 떨어진 순간이니까 데이터 가져올 수 있지 않을까?
-  if (readyState === 4) {
-    // complete. 실패할 수도.
-    if (status >= 200 && status < 400) {
-      console.log(response); // xhr.status: 상태 코드
-    } else {
-      // 실패
+  xhr.addEventListener('readystatechange', () => {
+    const { readyState, status, response } = xhr; // 이 코드 추가 후 xhr.뫄뫄를 다 없앰
+
+    // on 붙은 이벤트는 다 on떼고 쓸 수 있대
+    // readyState === 4 : xhr.response 조회하면 데이터 떨어진 순간이니까 데이터 가져올 수 있지 않을까?
+    if (readyState === 4) {
+      // complete. 실패할 수도.
+      if (status >= 200 && status < 400) {
+        console.log(response); // xhr.status: 상태 코드
+      } else {
+        console.log('실패!');
+      }
     }
-  }
-}); // 상태가 바뀔 때마다 호출
+  }); // 상태가 바뀔 때마다 호출
 
-xhr.send();
+  xhr.send(JSON.stringify(body)); // id만 나오고 우리가 넣은 값은 안 나옴
+}
+
+xhr('POST', ENDPOINT, user);
