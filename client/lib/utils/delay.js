@@ -12,7 +12,9 @@
 // 함수는 값이라 던져질 수 있는 것
 
 import { getNode } from '../dom/getNode.js';
+import { insertLast } from '../dom/insert.js';
 import { isNumber, isObject } from './type.js';
+import { xhrPromise } from './xhr.js';
 
 function delay(callback, timeout = 500) {
   setTimeout(callback, timeout);
@@ -78,7 +80,7 @@ function delayP(options) {
   let config = { ...defaultOptions }; // 디폴트 먼저 복사.
   // let config = defaultOptions; 참조 복사
   // const config = Object.assign({}, defaultOptions);
-  // const config = Object.assign(config, options); options가 config를 덮어쓰는 형태
+  // const config = Object.assign(config, options); options가 config를 덮어쓰는
 
   if (isNumber(options)) {
     // 넘버야? 그럼 timeout에 넣어줘
@@ -109,7 +111,7 @@ function delayP(options) {
   });
 }
 
-delayP(5000);
+// delayP(5000);
 // delayP(3000); // 숫자만 넣으면 timeout에 적용되도록
 
 // delayP()
@@ -146,3 +148,71 @@ delayP()
   delayP().then().then().then().then().then().then().then().then().then().then()
 );
  */
+
+/* ------------------------------- async await ------------------------------ */
+
+// async 함수는 무조건 Promise object를 반환함
+// await 2가지 기능 수행
+//  1. result 꺼내오기
+//  2. 코드 실행 흐름
+
+async function delayA(data) {
+  // async 쓰면 프로미스 객체 반환
+  // Top level await 최상위에 async 있다고 가정하고 -(1)
+
+  const p = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('성공');
+    }, 2000);
+  });
+
+  const result = await p; // p가 결괏값을 담을 때까지 이 아래 코드를 실행하지 않음.
+  // 약간 then 같은 기능. 순서를 완전히 보장해줌!
+  // 우리가 일반 코드 읽는 순서대로 읽으면 돼서 가독성이 좋음
+
+  // console.log(result);
+
+  // async 붙이니까 지연이 아니라 Promise를 반환함
+  return data;
+}
+
+/* delayA('지연').then((res) => {
+  console.log(res);
+});
+ */
+const data = await delayA('지연'); // await 뒤에 오는 게 프로미스 객체여야 await으로 꺼내 쓸 수 있음
+// await를 밖에 꺼내 쓸 수 있음 -(2)
+// console.log(data);
+/* 
+async function 라면끓이기() {
+  delayP(); // promise 객체 반환하는 애
+
+  const a = await delayP({ data: '물' });
+  console.log(a);
+
+  const b = await delayP({ data: '스프' });
+  console.log(b);
+
+  const c = await delayP({ data: '면' });
+  console.log(c);
+
+  await delayP();
+  console.log('그릇');
+}
+
+라면끓이기();
+ */
+
+/* ----------------------------------- 포켓몬 ---------------------------------- */
+async function getData() {
+  const data = await xhrPromise.get('https://pokeapi.co/api/v2/pokemon/172');
+
+  console.log();
+
+  insertLast(
+    document.body,
+    `<img src="${data.sprites.other.showdown['front_default']}" alt="" />`
+  );
+}
+
+getData();
