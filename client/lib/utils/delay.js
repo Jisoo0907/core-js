@@ -76,6 +76,9 @@ const defaultOptions = {
 
 function delayP(options) {
   let config = { ...defaultOptions }; // 디폴트 먼저 복사.
+  // let config = defaultOptions; 참조 복사
+  // const config = Object.assign({}, defaultOptions);
+  // const config = Object.assign(config, options); options가 config를 덮어쓰는 형태
 
   if (isNumber(options)) {
     // 넘버야? 그럼 timeout에 넣어줘
