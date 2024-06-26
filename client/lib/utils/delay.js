@@ -12,6 +12,7 @@
 // 함수는 값이라 던져질 수 있는 것
 
 import { getNode } from '../dom/getNode.js';
+import { isNumber, isObject } from './type.js';
 
 function delay(callback, timeout = 500) {
   setTimeout(callback, timeout);
@@ -65,41 +66,70 @@ const p = new Promise((성공, reject) => {
 }); // 내부적으로 콜백 함수 두 개를 받음
 // resolve와 reject는 모두 함수
 
-function delayP(timeout = 1000) {
+/* ---------------------------------- 객체 합성 --------------------------------- */
+const defaultOptions = {
+  shouldRejected: false,
+  data: '성공',
+  errorMessage: '알 수 없는 오류',
+  timeout: 1000,
+};
+
+function delayP(options) {
+  let config = { ...defaultOptions }; // 디폴트 먼저 복사.
+
+  if (isNumber(options)) {
+    // 넘버야? 그럼 timeout에 넣어줘
+    config.timeout = options;
+  }
+
+  if (isObject(options)) {
+    config = { ...defaultOptions, ...options }; // spread operator
+    // 객체의 속성을 풀어서 다른 객체에 복사
+    // options 객체 속성이 defaultOptions객체의 속성을 덮어씀
+  }
+
+  console.log(config);
+
+  const { shouldRejected, data, errorMessage, timeout } = config;
+  // 구조 분해 할당
+  // 객체 config의 속성들을 개별 변수에 할당
+  // 객체 속성의 이름을 기준으로 해당 속성 값을 추출하여 변수에 할당
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (!shouldRejected) {
-        resolve('성공!');
+        resolve(data);
       } else {
-        reject('실패!');
+        reject({ message: errorMessage });
       }
     }, timeout);
   });
 }
 
-// console.log(delayP()); // <Promise> 객체 반환하게끔
+delayP(5000);
+// delayP(3000); // 숫자만 넣으면 timeout에 적용되도록
 
-delayP()
-  .then((res) => {
-    //console.log(res);
-    first.style.top = '-100px';
-    second.style.top = '100px';
+// delayP()
+//   .then((res) => {
+//     //console.log(res);
+//     first.style.top = '-100px';
+//     second.style.top = '100px';
 
-    return delayP();
-  })
+//     return delayP();
+//   })
 
-  .then((res) => {
-    // console.log(res);
-    first.style.transform = 'rotate(360deg)';
-    second.style.transform = 'rotate(-360deg)';
+//   .then((res) => {
+//     // console.log(res);
+//     first.style.transform = 'rotate(360deg)';
+//     second.style.transform = 'rotate(-360deg)';
 
-    return delayP();
-  })
-  .then((res) => {
-    first.style.top = '0px';
-    second.style.top = '0px';
-    //console.log(res);
-  });
+//     return delayP();
+//   })
+//   .then((res) => {
+//     first.style.top = '0px';
+//     second.style.top = '0px';
+//     //console.log(res);
+//   });
 
 /*   이렇게도 가능
 delayP()
