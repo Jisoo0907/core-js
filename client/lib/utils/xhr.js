@@ -156,5 +156,5 @@ function xhrPromise(method, url, body) {
 
 xhrPromise('GET', ENDPOINT, { name: 'tiger' }) // then 쓰려면 promise 객체를 반환해야 함 -(1)
   .then((res) => {
-    console.log(res);
+    // console.log(res);
   });
