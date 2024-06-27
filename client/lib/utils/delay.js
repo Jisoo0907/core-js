@@ -204,7 +204,7 @@ async function 라면끓이기() {
  */
 
 /* ----------------------------------- 포켓몬 ---------------------------------- */
-async function getData() {
+/* async function getData() {
   const data = await xhrPromise.get('https://pokeapi.co/api/v2/pokemon/172');
 
   console.log();
@@ -215,4 +215,4 @@ async function getData() {
   );
 }
 
-getData();
+getData(); */
