@@ -1,5 +1,9 @@
-import { renderUserCard } from './lib/dom/userList.js';
-import { changeColor, getNode, tiger } from './lib/index.js';
+import {
+  renderEmptyCard,
+  renderSpinner,
+  renderUserCard,
+} from './lib/dom/userList.js';
+import { changeColor, delayP, getNode, tiger } from './lib/index.js';
 /* global gsap */
 const ENDPOINT = 'https://jsonplaceholder.typicode.com/users';
 
@@ -21,23 +25,45 @@ console.log(response.data); */
 const userCardInner = getNode('.user-card-inner');
 
 async function renderUserList() {
-  const response = await tiger.get(ENDPOINT);
+  // 로딩 스피너 렌더링
+  renderSpinner(userCardInner); // 여기서 loadingSpinner를 생성했기 때문에
+  // 함수 밖에서 getNode('.loadingSpinner')하면 에러
 
-  const data = response.data;
+  await delayP(2000);
 
-  data.forEach((user) => renderUserCard(userCardInner, user));
+  try {
+    gsap.to('.loadingSpinner', {
+      opacity: 0,
+      onComplete() {
+        // 이 안에서 this는 tween 반환 => 이 안에 _targets가 있음.
+        // _targets에 loadingSpinner가 들어 있음.
+        // 애니메이션이 끝나고도 존재해서 삭제 버튼에 영향을 줘서
+        this._targets[0].remove(); // 이 코드 추가함
+      },
+    });
+    // getNode('.loadingSpinner').remove();
 
-  changeColor('.user-card');
+    const response = await tiger.get(ENDPOINT);
 
-  gsap.from('.user-card-list', {
-    // to는 현재 위치부터 ~까지 가. from은 ~부터 현재 위치까지 와.
-    x: 100,
-    opacity: 0,
-    stagger: {
-      amount: 1,
-      from: 'start',
-    },
-  });
+    const data = response.data;
+
+    data.forEach((user) => renderUserCard(userCardInner, user));
+    changeColor('.user-card');
+
+    gsap.from('.user-card', {
+      x: -100,
+      opacity: 0,
+      stagger: {
+        amount: 1,
+        from: 'start',
+      },
+    });
+  } catch {
+    console.error('에러가 발생했습니다!');
+    renderEmptyCard(userCardInner);
+  }
 }
 
 renderUserList();
+
+// to는 현재 위치부터 ~까지 가. from은 ~부터 현재 위치까지 와.

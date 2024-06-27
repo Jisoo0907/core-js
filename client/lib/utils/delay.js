@@ -76,7 +76,7 @@ const defaultOptions = {
   timeout: 1000,
 };
 
-function delayP(options) {
+export function delayP(options) {
   let config = { ...defaultOptions }; // 디폴트 먼저 복사.
   // let config = defaultOptions; 참조 복사
   // const config = Object.assign({}, defaultOptions);
@@ -93,7 +93,7 @@ function delayP(options) {
     // options 객체 속성이 defaultOptions객체의 속성을 덮어씀
   }
 
-  console.log(config);
+  // console.log(config);
 
   const { shouldRejected, data, errorMessage, timeout } = config;
   // 구조 분해 할당
