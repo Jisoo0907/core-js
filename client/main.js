@@ -96,3 +96,49 @@ function handleDeleteCard(e) {
 }
 
 userCardInner.addEventListener('click', handleDeleteCard);
+
+/* ------------------------------ button design ----------------------------- */
+const createButton = getNode('.create');
+const cancelButton = getNode('.cancel');
+const doneButton = getNode('.done');
+
+function handleCreate() {
+  gsap.to('.pop', { autoAlpha: 1 });
+  // createButton.classList.add('open')
+}
+
+function handleCancel(e) {
+  e.stopPropagation(); // 버블링 막음
+  gsap.to('.pop', { autoAlpha: 0 });
+  // createButton.classList.remove('open');
+}
+
+function handleDone(e) {
+  e.preventDefault(); // form 태그의 기본 동작을 차단. 그래서 추가하면 깜빡 안 함.
+
+  const name = getNode('#nameField').value;
+  const email = getNode('#emailField').value;
+  const website = getNode('#siteField').value;
+
+  /* POST 통신 */
+  const obj = {
+    name,
+    email,
+    website,
+  };
+  tiger.post(ENDPOINT, obj).then(() => {
+    // 1. 팝업 닫기
+    gsap.to('.pop', { autoAlpha: 0 });
+    // createButton.classList.remove('open');
+
+    // 2. 카드 컨텐츠 비우기
+    clearContents(userCardInner);
+
+    // 3. 유저카드 렌더링하기
+    renderUserList();
+  });
+}
+
+createButton.addEventListener('click', handleCreate);
+cancelButton.addEventListener('click', handleCancel);
+doneButton.addEventListener('click', handleDone);
