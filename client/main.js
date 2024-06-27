@@ -1,6 +1,6 @@
 import { renderUserCard } from './lib/dom/userList.js';
-import { getNode, tiger } from './lib/index.js';
-
+import { changeColor, getNode, tiger } from './lib/index.js';
+/* global gsap */
 const ENDPOINT = 'https://jsonplaceholder.typicode.com/users';
 
 /* ---------------------------------- 함수 사용 --------------------------------- */
@@ -26,6 +26,18 @@ async function renderUserList() {
   const data = response.data;
 
   data.forEach((user) => renderUserCard(userCardInner, user));
+
+  changeColor('.user-card');
+
+  gsap.from('.user-card-list', {
+    // to는 현재 위치부터 ~까지 가. from은 ~부터 현재 위치까지 와.
+    x: 100,
+    opacity: 0,
+    stagger: {
+      amount: 1,
+      from: 'start',
+    },
+  });
 }
 
 renderUserList();
