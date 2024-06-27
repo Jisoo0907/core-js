@@ -1,11 +1,17 @@
+/* global gsap */
+
 import {
-  renderEmptyCard,
+  tiger,
+  delayP,
+  getNode,
+  changeColor,
+  clearContents,
   renderSpinner,
   renderUserCard,
-} from './lib/dom/userList.js';
-import { changeColor, delayP, getNode, tiger } from './lib/index.js';
-/* global gsap */
-const ENDPOINT = 'https://jsonplaceholder.typicode.com/users';
+  renderEmptyCard,
+} from './lib/index.js';
+
+const ENDPOINT = 'http://localhost:3000/users';
 
 /* ---------------------------------- 함수 사용 --------------------------------- */
 /* const response = await tiger.get(ENDPOINT);
@@ -29,7 +35,7 @@ async function renderUserList() {
   renderSpinner(userCardInner); // 여기서 loadingSpinner를 생성했기 때문에
   // 함수 밖에서 getNode('.loadingSpinner')하면 에러
 
-  await delayP(2000);
+  // await delayP(2000);
 
   try {
     gsap.to('.loadingSpinner', {
@@ -67,3 +73,26 @@ async function renderUserList() {
 renderUserList();
 
 // to는 현재 위치부터 ~까지 가. from은 ~부터 현재 위치까지 와.
+
+/* ---------------------------------- Event --------------------------------- */
+
+function handleDeleteCard(e) {
+  const button = e.target.closest('button');
+
+  if (!button) return;
+
+  const article = button.closest('article');
+  const index = article.dataset.index.slice(5);
+
+  console.log();
+
+  tiger.delete(`${ENDPOINT}/${index}`).then(() => {
+    // 요청 보내고 렌더링하기
+    // 받아온 거 렌더링 하니까 기존에 있던 거에 계속 추가함
+    // 기존 HTML 날려줘야 함 => clearContents
+    clearContents(userCardInner);
+    renderUserList();
+  });
+}
+
+userCardInner.addEventListener('click', handleDeleteCard);
