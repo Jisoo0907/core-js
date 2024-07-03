@@ -194,7 +194,7 @@ select {
   border: none;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.2, -0.73, 0.65, 1.47);
-  /* transition: all 0.5s ease; */
+
   &:hover {
     transform: scale(1.3);
   }
