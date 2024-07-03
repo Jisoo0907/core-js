@@ -1,20 +1,43 @@
-class MyElement extends HTMLElement {
+class Button extends HTMLElement {
   constructor() {
-    super(); // 부모의 능력 상속 받겠다
+    super();
+
+    this.button = document.querySelector('button');
   }
 
   connectedCallback() {
-    console.log('탄생함');
+    this._render();
   }
 
-  disconnectedCallback() {
-    console.log('죽음');
+  disconnectedCallback() {}
+
+  static get observedAttributes() {
+    return ['id'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this._render();
+    }
+  }
+
+  _render() {
+    this.button.textContent = this.id;
   }
 }
 
-customElements.define('c-element', MyElement); // HTML에서 사용할 태그 이름
+customElements.define('c-button', Button);
 
-const elem = document.createElement('c-element');
-const app = document.getElementById('app');
+const c = document.querySelector('c-button');
 
-app.appendChild(elem);
+let count = 0;
+
+c.addEventListener('click', () => {
+  c.setAttribute('id', ++count);
+});
+
+// console.log(this); // this 찍으면 <c-button id="10"></c-button>
+// this.id 찍으면 10
+// label 같은 건 못 가져옴. 비표준이라.
+// this.getAttribute('label')로 가져올 수 있음.
+// data-label이면 this.dataset.label로 가져옴.
